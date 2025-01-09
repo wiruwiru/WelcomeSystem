@@ -1,0 +1,51 @@
+{
+  "ChatPrefix": " [{GREEN}WelcomeSystem{WHITE}]{WHITE}",
+  "Texts": [
+    {
+      "MessageText": "Gracias por jugar en:",
+      "FontSize": 60,
+      "Color": "Green",
+      "OffsetZ": 20,
+      "WorldUnitsPerPx": 0.1,
+      "OffsetForward": 60,
+      "OffsetRight": -38
+    },
+    {
+      "MessageText": "CrisisGamer",
+      "FontSize": 140,
+      "Color": "Gold",
+      "OffsetZ": 12,
+      "WorldUnitsPerPx": 0.1,
+      "OffsetForward": 60,
+      "OffsetRight": -46
+    },
+    {
+      "MessageText": "CrisisGamer",
+      "FontSize": 140,
+      "Color": "White",
+      "OffsetZ": 12,
+      "WorldUnitsPerPx": 0.1,
+      "OffsetForward": 61,
+      "OffsetRight": -46
+    },
+    {
+      "MessageText": "Uneté a nuestro !discord",
+      "FontSize": 60,
+      "Color": "Green",
+      "OffsetZ": -2,
+      "WorldUnitsPerPx": 0.1,
+      "OffsetForward": 60,
+      "OffsetRight": -42
+    },
+    {
+      "MessageText": "Presione E para salir",
+      "FontSize": 30,
+      "Color": "Red",
+      "OffsetZ": -8,
+      "WorldUnitsPerPx": 0.1,
+      "OffsetForward": 50,
+      "OffsetRight": -15
+    }
+  ],
+  "ConfigVersion": 1
+}

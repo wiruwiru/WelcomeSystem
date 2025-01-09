@@ -1,0 +1,6 @@
+{
+  "Prefix": "[{green}WelcomeSystem{default}]{default}",
+  "NoPermissions": "No tienes permiso para ejecutar este comando.",
+  "Reloaded": "El plugin ha sido recargado.",
+  "FailedToReload": "No se pudo recargar el plugin."
+}

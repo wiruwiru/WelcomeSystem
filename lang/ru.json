@@ -1,0 +1,6 @@
+{
+  "Prefix": "[{green}WelcomeSystem{default}]{default}",
+  "NoPermissions": "У вас нет прав для выполнения этой команды.",
+  "Reloaded": "Плагин был перезагружен.",
+  "FailedToReload": "Не удалось перезагрузить плагин."
+}
