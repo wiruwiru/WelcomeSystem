@@ -5,7 +5,9 @@ namespace WelcomeSystem;
 
 public class BaseConfigs : BasePluginConfig
 {
-    
+    [JsonPropertyName("DisplayDuration")]
+    public float DisplayDuration { get; set; } = 15.0f;
+
     [JsonPropertyName("Texts")]
     public List<TextConfig> Texts { get; set; } = new()
     {

@@ -1,5 +1,5 @@
 {
-  "ChatPrefix": " [{GREEN}WelcomeSystem{WHITE}]{WHITE}",
+  "DisplayDuration": 15,
   "Texts": [
     {
       "MessageText": "Gracias por jugar en:",

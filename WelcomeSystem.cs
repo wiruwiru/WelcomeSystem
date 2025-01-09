@@ -13,10 +13,11 @@ namespace WelcomeSystem;
 public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
 {
     public override string ModuleName => "WelcomeSystem";
-    public override string ModuleVersion => "1.0.0";
+    public override string ModuleVersion => "1.0.1";
     public override string ModuleAuthor => "luca.uy";
     public override string ModuleDescription => "Displays a welcome message on the player's screen";
     public required BaseConfigs Config { get; set; }
+    private readonly Dictionary<int, bool> playerMessageShown = new();
 
     public void OnConfigParsed(BaseConfigs config)
     {
@@ -46,6 +47,8 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
                 commandInfo.ReplyToCommand($"{Localizer["Prefix"]} {Localizer["FailedToReload"]}: {ex.Message}");
             }
         });
+
+        RegisterListener<Listeners.OnMapEnd>(OnMapEnd);
     }
 
     [GameEventHandler]
@@ -53,6 +56,13 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
     {
         if (@event.Userid is not CCSPlayerController player || player.IsBot)
             return HookResult.Continue;
+
+        if (playerMessageShown.TryGetValue(player.Slot, out var hasShown) && hasShown)
+        {
+            return HookResult.Continue;
+        }
+
+        playerMessageShown[player.Slot] = true;
 
         AddTimer(2.0f, () =>
         {
@@ -104,7 +114,7 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
                 worldText.DispatchSpawn();
 
                 worldText.AcceptInput("SetParent", pawn, null, "!activator");
-                worldText.AcceptInput("SetParentAttachmentMaintainOffset", pawn, null, "axis_of_intent");
+                worldText.AcceptInput("SetParentAttachmentMaintainOffset", pawn, null, "viewmodel"); // axis_of_intent
 
                 bool textDestroyed = false;
 
@@ -119,7 +129,7 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
                     }
                 }, TimerFlags.REPEAT);
 
-                AddTimer(15.0f, () =>
+                AddTimer(Config.DisplayDuration, () =>
                 {
                     if (!textDestroyed && worldText != null && worldText.IsValid)
                     {
@@ -141,6 +151,11 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
             }
         });
         return HookResult.Continue;
+    }
+
+    private void OnMapEnd()
+    {
+        playerMessageShown.Clear();
     }
 
 }
