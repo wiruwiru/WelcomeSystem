@@ -13,7 +13,7 @@ namespace WelcomeSystem;
 public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
 {
     public override string ModuleName => "WelcomeSystem";
-    public override string ModuleVersion => "1.0.1";
+    public override string ModuleVersion => "1.0.2";
     public override string ModuleAuthor => "luca.uy";
     public override string ModuleDescription => "Displays a welcome message on the player's screen";
     public required BaseConfigs Config { get; set; }
@@ -52,7 +52,7 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
     }
 
     [GameEventHandler]
-    public HookResult OnPlayerSpawn(EventPlayerSpawn @event, GameEventInfo info)
+    public HookResult OnPlayerSpawn(EventPlayerSpawned @event, GameEventInfo info)
     {
         if (@event.Userid is not CCSPlayerController player || player.IsBot)
             return HookResult.Continue;
@@ -64,7 +64,7 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
 
         playerMessageShown[player.Slot] = true;
 
-        AddTimer(2.0f, () =>
+        AddTimer(0.8f, () =>
         {
             CCSPlayerPawn? pawn = player?.PlayerPawn.Value;
             CPlayer_CameraServices? camera = pawn?.CameraServices;
@@ -150,6 +150,20 @@ public class WelcomeSystemBase : BasePlugin, IPluginConfig<BaseConfigs>
                 });
             }
         });
+        return HookResult.Continue;
+    }
+
+    [GameEventHandler]
+    public HookResult OnPlayerDisconnect(EventPlayerDisconnect @event, GameEventInfo info)
+    {
+        if (@event.Userid is not CCSPlayerController player)
+            return HookResult.Continue;
+
+        if (playerMessageShown.ContainsKey(player.Slot))
+        {
+            playerMessageShown.Remove(player.Slot);
+        }
+
         return HookResult.Continue;
     }
 
